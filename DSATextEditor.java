@@ -1,4 +1,6 @@
 import javax.swing.JFrame;
+import javax.swing.border.EmptyBorder;
+
 import java.awt.event.*;
 import javax.swing.*;
 
@@ -80,13 +82,10 @@ public class DSATextEditor {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				SavetoDevice.savetoFile();
-
 				if (!SavetoDevice.savetoFile()) {
 					JOptionPane.showMessageDialog(null, "Error saving, Please try again!",  "Error", JOptionPane.ERROR_MESSAGE);
 				}
 				StackStorage.txtEditor.grabFocus();
-
 			}
 		});
 		copy.addActionListener(new ActionListener() {
@@ -187,8 +186,7 @@ public class DSATextEditor {
 			}
 		});
 
-
-		JLabel lblAddress = new JLabel("\t Editor");
+		JLabel lblAddress = new JLabel("\n\nEditor:");
 		panel.add(lblAddress);
 		StackStorage.txtEditor.setBorder(BorderFactory.createLineBorder(Color.black));
 		StackStorage.txtEditor.setLineWrap(true);
@@ -197,7 +195,7 @@ public class DSATextEditor {
 		JScrollPane scrollPane = new JScrollPane(StackStorage.txtEditor,
 				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-		scrollPane.setPreferredSize(new Dimension(1280, 630));
+		scrollPane.setPreferredSize(new Dimension(1200, 600));
 		panel.add(scrollPane);
 	
 	
@@ -247,7 +245,7 @@ public class DSATextEditor {
 				SpringLayout.WEST, panel);
 
 		layout.putConstraint(SpringLayout.WEST, New,
-				30,
+				0,
 				SpringLayout.WEST, panel);
 		layout.putConstraint(SpringLayout.NORTH, lblAddress,
 				10,
@@ -301,10 +299,25 @@ public class DSATextEditor {
 				10,
 				SpringLayout.SOUTH, lblAddress);
 
-		frame.setSize(1300, 750);
+		frame.setSize(1270, 750);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setVisible(true);
 		frame.getContentPane().add(panel);
+		panel.setBorder(new EmptyBorder(10, 30, 10, 30));
+		// panel.setBackground(Color.LIGHT_GRAY);
+		New.setBackground(Color.WHITE);
+		save.setBackground(Color.WHITE);
+		saveas.setBackground(Color.WHITE);
+		copy.setBackground(Color.WHITE);
+		paste.setBackground(Color.WHITE);
+		cut.setBackground(Color.WHITE);
+		clear.setBackground(Color.WHITE);
+		font.setBackground(Color.WHITE);
+		style.setBackground(Color.WHITE);
+		read.setBackground(Color.WHITE);
+		undo.setBackground(Color.WHITE);
+		redo.setBackground(Color.WHITE);
+		exit.setBackground(Color.WHITE);
 		StackStorage.txtEditor.grabFocus();
 	}
 	
