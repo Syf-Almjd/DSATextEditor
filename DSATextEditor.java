@@ -256,6 +256,20 @@ public class DSATextEditor {
 		frame.setVisible(true);
 		frame.getContentPane().add(panel);
 		StackStorage.txtEditor.grabFocus();
+		New.setBackground(Color.WHITE);
+		save.setBackground(Color.WHITE);
+		saveas.setBackground(Color.WHITE);
+		copy.setBackground(Color.WHITE);
+		paste.setBackground(Color.WHITE);
+		cut.setBackground(Color.WHITE);
+		clear.setBackground(Color.WHITE);
+		font.setBackground(Color.WHITE);
+		style.setBackground(Color.WHITE);
+		read.setBackground(Color.WHITE);
+		undo.setBackground(Color.WHITE);
+		redo.setBackground(Color.WHITE);
+		exit.setBackground(Color.WHITE);
+		StackStorage.txtEditor.grabFocus();
 	}
 
 	static void Newbtn() {
@@ -355,4 +369,5 @@ public class DSATextEditor {
 		}
 
 	}
+
 }
