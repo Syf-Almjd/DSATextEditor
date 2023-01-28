@@ -2,7 +2,7 @@ import javax.swing.JFrame;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-
+import java.lang.Thread;
 import java.awt.*;
 
 public class DSATextEditor {
@@ -145,7 +145,8 @@ public class DSATextEditor {
 				exitbtn();
 			}
 		});
-
+		
+	
 		StackStorage.txtEditor.setBorder(BorderFactory.createLineBorder(Color.black));
 		StackStorage.txtEditor.setLineWrap(true);
 		StackStorage.txtEditor.setWrapStyleWord(true);
@@ -277,16 +278,28 @@ public class DSATextEditor {
 		redo.setBackground(Color.WHITE);
 		exit.setBackground(Color.WHITE);
 		StackStorage.txtEditor.grabFocus();
+		while (true) {
+			savebtn();
+			Thread.sleep(500);
+			savebtn();
+            try {
+                Thread.sleep(3000);
+				savebtn();
+            } catch (InterruptedException e) {
+                System.out.println("Error saving to stack");
+            }
+        }
 	}
 
 	static void Newbtn() {
 		SavetoDevice.savetoFile();
 		StackStorage.txtEditor.setText("");
 		StackStorage.txtEditor.grabFocus();
+		savebtn();
+		
 	}
 
 	static void savebtn() {
-
 		String text = StackStorage.txtEditor.getText();
 		StackStorage.WRITE(StackStorage.mainStack, text);
 		StackStorage.txtEditor.grabFocus();
@@ -303,6 +316,7 @@ public class DSATextEditor {
 	static String copybtn() {
 		StackStorage.COPY(StackStorage.CopyPaste, StackStorage.txtEditor.getText().toString());
 		StackStorage.txtEditor.grabFocus();
+		
 		return StackStorage.txtEditor.getText();
 	}
 
