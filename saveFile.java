@@ -7,27 +7,27 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 public class saveFile {
-	StackStorage mainfile = new StackStorage();
+	int chooserStatus;
+	String filename = "";
+	JFileChooser chooser = new JFileChooser();
+
+	boolean success;
+	FileWriter fwriter;
+	PrintWriter outputFile;
 
 	boolean savetoFile() {
-		int chooserStatus;
-		String filename = "";
-		boolean success;
-		FileWriter fwriter;
-		PrintWriter outputFile;
-		String Text = StackStorage.txtEditor.getText();
 
-		JFileChooser chooser = new JFileChooser();
 		chooserStatus = chooser.showSaveDialog(null);
 		if (chooserStatus == JFileChooser.APPROVE_OPTION) {
 			File selectedFile = chooser.getSelectedFile();
 			filename = selectedFile.getPath();
 			JOptionPane.showMessageDialog(null, "Path of stored file is:" + filename);
 		}
+
 		try {
 			fwriter = new FileWriter(filename + ".txt");
 			outputFile = new PrintWriter(fwriter);
-			outputFile.print(Text);
+			outputFile.print(StackStorage.txtEditor.getText());
 			outputFile.close();
 			success = true;
 		} catch (IOException e) {

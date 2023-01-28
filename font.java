@@ -11,13 +11,13 @@ import javax.swing.JRadioButton;
 import java.awt.event.*;
 
 public class font {
-    StackStorage mainfile = new StackStorage();
-     void fonttype() {
-		final JFrame f = new JFrame();
-		JRadioButton jRadioButton1, jRadioButton2, jRadioButton3;
-		JButton jButton;
-		ButtonGroup G1;
-		JLabel L1;
+	final JFrame f = new JFrame();
+	JRadioButton jRadioButton1, jRadioButton2, jRadioButton3;
+	JButton donebtn = new JButton("Done");
+	ButtonGroup G1;
+	JLabel fontLbl = new JLabel("Choose Font: ");
+
+	void fonttype() {
 		f.setBounds(300, 300, 300, 280);
 		f.setTitle("Font Type:");
 		f.setVisible(true);
@@ -26,28 +26,27 @@ public class font {
 		jRadioButton2 = new JRadioButton("Serif");
 		jRadioButton3 = new JRadioButton("SansSerif");
 
-		jButton = new JButton("Done");
 		G1 = new ButtonGroup();
-		L1 = new JLabel("Choose Font: ");
+		fontLbl = new JLabel("Choose Font: ");
 
 		jRadioButton1.setBounds(100, 20, 120, 50);
 		jRadioButton2.setBounds(100, 55, 120, 50);
 		jRadioButton3.setBounds(100, 85, 120, 50);
 
-		jButton.setBounds(100, 150, 80, 50);
-		L1.setBounds(10, 30, 100, 30);
+		donebtn.setBounds(100, 150, 80, 50);
+		fontLbl.setBounds(10, 30, 100, 30);
 		f.add(jRadioButton1);
 		f.add(jRadioButton2);
 		f.add(jRadioButton3);
-		f.add(jButton);
+		f.add(donebtn);
 
-		f.add(L1);
+		f.add(fontLbl);
 
 		G1.add(jRadioButton1);
 		G1.add(jRadioButton2);
 		G1.add(jRadioButton3);
 
-		jButton.addActionListener(new ActionListener() {
+		donebtn.addActionListener(new ActionListener() {
 			Font textFont = StackStorage.txtEditor.getFont();
 			String fontName = textFont.getName();
 			int fontSize = textFont.getSize();
@@ -74,11 +73,14 @@ public class font {
 			}
 		});
 	}
-	 void fontstyle() {
+
+	void fontstyle() {
 		final JFrame f = new JFrame();
 		JCheckBox c1, c2;
-		JButton jButton;
-		JLabel L1;
+		JButton Donebtn = new JButton("Done");
+
+		JLabel fontLbl;
+
 		f.setBounds(280, 250, 280, 250);
 		f.setTitle("Font Style:");
 		f.setVisible(true);
@@ -86,9 +88,8 @@ public class font {
 		c1 = new JCheckBox("Bold");
 		c2 = new JCheckBox("ITALIC");
 
-		jButton = new JButton("Done");
-		L1 = new JLabel("Choose Style: ");
-		jButton.addActionListener(new ActionListener() {
+		fontLbl = new JLabel("Choose Style: ");
+		Donebtn.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -98,15 +99,15 @@ public class font {
 
 		c1.setBounds(100, 20, 120, 50);
 		c2.setBounds(100, 55, 120, 50);
-		jButton.setBounds(100, 120, 80, 50);
-		L1.setBounds(10, 30, 100, 30);
+		Donebtn.setBounds(100, 120, 80, 50);
+		fontLbl.setBounds(10, 30, 100, 30);
 		f.add(c1);
 		f.add(c2);
-		f.add(jButton);
+		f.add(Donebtn);
 
-		f.add(L1);
+		f.add(fontLbl);
 
-		jButton.addActionListener(new ActionListener() {
+		Donebtn.addActionListener(new ActionListener() {
 			Font textFont = StackStorage.txtEditor.getFont();
 			String fontName = textFont.getName();
 			int fontSize = textFont.getSize();

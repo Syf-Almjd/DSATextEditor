@@ -1,48 +1,48 @@
 import javax.swing.JFrame;
-import javax.swing.border.EmptyBorder;
-
 import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 
 import java.awt.*;
 
 public class DSATextEditor {
-    public static void main(String[] args) {
-// JOptionPane.showMessageDialog(null, "Welcome to the DSA editor! you can use shortcuts such as\n" 
-        // + "\n - Select all text in current document: Ctrl + A"
-        // + "\n - Cut the current selection: Ctrl + X"
-        // + "\n - Copy the current selection: Ctrl + C"
-        // + "\n - Paste the contents of the clipboard: Ctrl + V"
+
+	final static JFrame frame = new JFrame("DSA Exclusive TextEditor");
+	final static SpringLayout layout = new SpringLayout();
+	final static JPanel panel = new JPanel(layout);
+	final static saveFile SavetoDevice = new saveFile();
+	final static font fontstyletype = new font();
+	final static JLabel lblAddress = new JLabel("\t Editor");
+
+	static JButton New = new JButton("New");
+	static JButton save = new JButton("Save");
+	static JButton saveas = new JButton("Save to Device");
+	static JButton copy = new JButton("Copy");
+	static JButton paste = new JButton("Paste");
+	static JButton cut = new JButton("Cut");
+	static JButton clear = new JButton("Clear");
+	static JButton read = new JButton("Read Stack");
+	static JButton font = new JButton("Font");
+	static JButton style = new JButton("Style");
+	static JButton undo = new JButton("Undo");
+	static JButton redo = new JButton("Redo");
+	static JButton exit = new JButton("Exit");
+
+	public static void main(String[] args) {
+		// JOptionPane.showMessageDialog(null, "Welcome to the DSA editor! you can use
+		// shortcuts such as\n"
+		// + "\n - Select all text in current document: Ctrl + A"
+		// + "\n - Cut the current selection: Ctrl + X"
+		// + "\n - Copy the current selection: Ctrl + C"
+		// + "\n - Paste the contents of the clipboard: Ctrl + V"
 		// + "\n\n (Note) To used the stack based options"
 		// + "\n - Save to save to stack"
-        // + "\n - Read Stack to read from stack"
+		// + "\n - Read Stack to read from stack"
 		// + "\n - Undo to Undo text from stack"
 		// + "\n - Redo to Redo text from stack"
 		// + "\n\n Thank you for using our Text Editor",
 
-		// "Pro TIPS!",  JOptionPane.INFORMATION_MESSAGE);
-
-		JFrame frame = new JFrame("DSA Exclusive TextEditor");
-		JButton New, save, saveas, copy, paste, cut, clear, read, font, style, exit,undo, redo;
-		SpringLayout layout = new SpringLayout();
-
-		final JPanel panel = new JPanel(layout);
-		final saveFile SavetoDevice = new saveFile();
-		final font fontstyletype = new font();
-
-		New = new JButton("New");
-		save = new JButton("Save");
-		saveas = new JButton("Save to Device");
-		copy = new JButton("Copy");
-		paste = new JButton("Paste");
-		cut = new JButton("Cut");
-		clear = new JButton("Clear");
-		read = new JButton("Read Stack");
-		font = new JButton("Font");
-		style = new JButton("Style");
-		undo = new JButton("Undo");
-		redo = new JButton("Redo");
-		exit = new JButton("Exit");
+		// "Pro TIPS!", JOptionPane.INFORMATION_MESSAGE);
 
 		panel.add(New);
 		panel.add(save);
@@ -57,14 +57,12 @@ public class DSATextEditor {
 		panel.add(undo);
 		panel.add(redo);
 		panel.add(exit);
+		panel.add(lblAddress);
 
 		New.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				SavetoDevice.savetoFile();
-				StackStorage.txtEditor.setText("");
-				StackStorage.txtEditor.grabFocus();
-
+				Newbtn();
 			}
 		});
 
@@ -72,121 +70,82 @@ public class DSATextEditor {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String text = StackStorage.txtEditor.getText();
-				StackStorage.WRITE(StackStorage.mainStack, text);
-				StackStorage.txtEditor.grabFocus();
+				savebtn();
 			}
-			
+
 		});
 		saveas.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (!SavetoDevice.savetoFile()) {
-					JOptionPane.showMessageDialog(null, "Error saving, Please try again!",  "Error", JOptionPane.ERROR_MESSAGE);
-				}
-				StackStorage.txtEditor.grabFocus();
+				saveasbtn();
 			}
 		});
 		copy.addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				StackStorage.COPY(StackStorage.CopyPaste, StackStorage.txtEditor.getText().toString());
-				StackStorage.txtEditor.grabFocus();
-
+				copybtn();
 			}
 		});
 		paste.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-                StackStorage.PASTE();
-				StackStorage.txtEditor.grabFocus();
-
+				pastebtn();
 			}
 		});
 		cut.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				StackStorage.CUT(StackStorage.CopyPaste, StackStorage.txtEditor.getText().toString());
-				StackStorage.txtEditor.grabFocus();
-
+				cutbtn();
 			}
 		});
-		
+
 		clear.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				StackStorage.txtEditor.setText("");
+				clearbtn();
 			}
 		});
 		font.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				fontstyletype.fonttype();
-				StackStorage.txtEditor.grabFocus();
+				fontbtn();
 			}
 		});
 		style.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				fontstyletype.fontstyle();
-				StackStorage.txtEditor.grabFocus();
+				stylebtn();
 			}
-		});	
+		});
 		read.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				try {
-					StackStorage.READ();
-				} catch (Exception a) {
-					JOptionPane.showMessageDialog(New, "No Saved Data!");
-				}		
-				StackStorage.txtEditor.grabFocus();
+				readbtn();
 			}
 		});
 		undo.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				try {
-					StackStorage.UNDO();
-				} catch (Exception a) {
-					JOptionPane.showMessageDialog(New, "No Saved Data!");
-				}
-				StackStorage.txtEditor.grabFocus();
+				undobtn();
 			}
-		});	
+		});
 		redo.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				try {
-					StackStorage.REDO();
-				} catch (Exception a) {
-					JOptionPane.showMessageDialog(New, "No More Data!");
-				}
-								StackStorage.txtEditor.grabFocus();
-
+				redobtn();
 			}
-		});	
+		});
 		exit.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int savingExit = JOptionPane.showConfirmDialog(New, "Do you want to save the file to your Device?", "Save to Device", JOptionPane.YES_NO_CANCEL_OPTION);
-				if (savingExit == 0) {
-					SavetoDevice.savetoFile();
-					System.exit(0);
-				} else if (savingExit == 1) {
-					System.exit(0);
-				}
-				
+				exitbtn();
 			}
 		});
 
-		JLabel lblAddress = new JLabel("\n\nEditor:");
-		panel.add(lblAddress);
 		StackStorage.txtEditor.setBorder(BorderFactory.createLineBorder(Color.black));
 		StackStorage.txtEditor.setLineWrap(true);
 		StackStorage.txtEditor.setWrapStyleWord(true);
@@ -319,5 +278,103 @@ public class DSATextEditor {
 		exit.setBackground(Color.WHITE);
 		StackStorage.txtEditor.grabFocus();
 	}
-	
+
+	static void Newbtn() {
+		SavetoDevice.savetoFile();
+		StackStorage.txtEditor.setText("");
+		StackStorage.txtEditor.grabFocus();
+	}
+
+	static void savebtn() {
+
+		String text = StackStorage.txtEditor.getText();
+		StackStorage.WRITE(StackStorage.mainStack, text);
+		StackStorage.txtEditor.grabFocus();
+	}
+
+	static void saveasbtn() {
+
+		if (!SavetoDevice.savetoFile()) {
+			JOptionPane.showMessageDialog(null, "Error saving, Please try again!", "Error", JOptionPane.ERROR_MESSAGE);
+		}
+		StackStorage.txtEditor.grabFocus();
+	}
+
+	static String copybtn() {
+		StackStorage.COPY(StackStorage.CopyPaste, StackStorage.txtEditor.getText().toString());
+		StackStorage.txtEditor.grabFocus();
+		return StackStorage.txtEditor.getText();
+	}
+
+	static String pastebtn() {
+		StackStorage.PASTE();
+		StackStorage.txtEditor.grabFocus();
+		return StackStorage.txtEditor.getText();
+	}
+
+	static String cutbtn() {
+		StackStorage.CUT(StackStorage.CopyPaste, StackStorage.txtEditor.getText().toString());
+		StackStorage.txtEditor.grabFocus();
+		return StackStorage.txtEditor.getText();
+
+	}
+
+	static void clearbtn() {
+		StackStorage.txtEditor.setText("");
+	}
+
+	static void fontbtn() {
+
+		fontstyletype.fonttype();
+		StackStorage.txtEditor.grabFocus();
+	}
+
+	static void stylebtn() {
+
+		fontstyletype.fontstyle();
+		StackStorage.txtEditor.grabFocus();
+	}
+
+	static String readbtn() {
+		try {
+			StackStorage.READ();
+		} catch (Exception a) {
+			JOptionPane.showMessageDialog(New, "No Saved Data!");
+		}
+		StackStorage.txtEditor.grabFocus();
+		return StackStorage.txtEditor.getText();
+	}
+
+	static void undobtn() {
+		try {
+			StackStorage.UNDO();
+		} catch (Exception a) {
+			JOptionPane.showMessageDialog(New, "No Saved Data!");
+		}
+		StackStorage.txtEditor.grabFocus();
+	}
+
+	static void redobtn() {
+
+		try {
+			StackStorage.REDO();
+		} catch (Exception a) {
+			JOptionPane.showMessageDialog(New, "No More Data!");
+		}
+		StackStorage.txtEditor.grabFocus();
+
+	}
+
+	static void exitbtn() {
+		int savingExit = JOptionPane.showConfirmDialog(New, "Do you want to save the file to your Device?",
+				"Save to Device", JOptionPane.YES_NO_CANCEL_OPTION);
+		if (savingExit == 0) {
+			SavetoDevice.savetoFile();
+			System.exit(0);
+		} else if (savingExit == 1) {
+			System.exit(0);
+		}
+
+	}
+
 }
