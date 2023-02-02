@@ -1,6 +1,3 @@
-# DSATextEditor
-A unique Text Editor that uses stack to save, undo or redo operations.
+A unique Text Editor that uses a stack to save, undo or redo operations.
 
-
-Its a good altenertive for notepad that is currently being used in windows
-Download it and give it a try!!
+It's an excellent alternative to notepad currently being used in windows Download it and give it a try!
